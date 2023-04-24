@@ -38,7 +38,7 @@ public class BoardListController extends HttpServlet {
 		int currentPage = Integer.parseInt((request.getParameter("currentPage") == null? "1" : request.getParameter("currentPage")));
 		int pageLimit = 10;
 		int boardLimit = 5;
-		
+		System.out.println(listCount);
 		PageInfo pi = new Pagination().getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		ArrayList<Board> list = new BoardService().selectList(pi);
