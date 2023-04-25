@@ -43,7 +43,7 @@ public class BoardDetailController extends HttpServlet {
 			// 2. 해당 게시글 상세조회 서비스
 			Board b = boardService.selectBoard(boardNo);
 			
-//			System.out.println(b);
+			System.out.println(b);
 			
 			// 3. 해당 게시글에 딸린 댓글들 조회하는 서비스
 			ArrayList<Reply> list = boardService.selectReplyList(boardNo);

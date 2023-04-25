@@ -10,8 +10,9 @@
 		<result column="USER_NAME" property="boardWriter"/>
 		<result column="COUNT" property="count"/>
 		<result column="BOARD_DATE" property="createDate"/>
-<!-- 		<collection property="replyList" resultMap="replyResultSet"/> -->
+		<collection property="replyList" resultMap="replyResultSet"/>
 	</resultMap>
+	
 	<resultMap type="reply" id="replyResultSet">
 		<id column="REPLY_NO" property="replyNo"/>
 		<result column="REPLY_CONTENT" property="replyContent"/>
@@ -38,18 +39,18 @@
 	</update>
 	
 	<select id="selectBoard" parameterType="int" resultMap="boardResultSet">
-<!-- 		SELECT BOARD_NO, BOARD_TITLE, USER_NAME, COUNT, B.CREATE_DATE AS BOARD_DATE, BOARD_CONTENT, -->
-<!-- 		       R.* -->
+<!-- 		SELECT BOARD_NO, BOARD_TITLE, USER_NAME, COUNT, B.CREATE_DATE AS BOARD_DATE, BOARD_CONTENT -->
 <!-- 		FROM BOARD B  -->
 <!-- 		JOIN MEMBER M ON B.BOARD_WRITER = M.USER_NO -->
-<!-- 		LEFT JOIN REPLY R ON B.BOARD_NO = R.REF_BNO -->
 <!-- 		WHERE B.BOARD_NO = #{boardNo} AND B.STATUS = 'Y' -->
 <!-- 		ORDER BY BOARD_NO DESC -->
-		SELECT BOARD_NO, BOARD_TITLE, USER_NAME, COUNT, B.CREATE_DATE AS BOARD_DATE, BOARD_CONTENT
+		SELECT BOARD_NO, BOARD_TITLE, USER_NAME, COUNT, B.CREATE_DATE AS BOARD_DATE, BOARD_CONTENT,
+		       R.*
 		FROM BOARD B 
 		JOIN MEMBER M ON B.BOARD_WRITER = M.USER_NO
+		LEFT JOIN REPLY R ON B.BOARD_NO = R.REF_BNO
 		WHERE B.BOARD_NO = #{boardNo} AND B.STATUS = 'Y'
-		ORDER BY BOARD_NO DESC
+		ORDER BY R.CREATE_DATE DESC
 	</select>
 	
 	<select id="selectReplyList" parameterType="int" resultMap="replyResultSet">
